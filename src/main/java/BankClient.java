@@ -7,7 +7,6 @@ public class BankClient {
         Scanner scan = new Scanner(System.in);
         System.out.println("What is your preferred name?");
         String name = scan.nextLine();
-        System.out.println(name);
         BankAccount newBank = new BankAccount(name);
         LocalTime time = LocalTime.now();
         System.out.println("Hello "+newBank.getPreferredName()+". The time is "+time+". Yes those are a lot of milliseconds.");
@@ -25,7 +24,6 @@ public class BankClient {
                 String money = scan.nextLine();
                 int deposits = Integer.parseInt(money);
                 newBank.deposit(deposits);
-                System.out.println("You deposited $"+deposits+".");
             }
             else if (input.equals("check balance")) {
                 System.out.println(newBank.getBalance());
@@ -42,7 +40,7 @@ public class BankClient {
                 newBank.setPreferredName(newName);
             }
             else if (input.equals("withdrawal history")) {
-                newBank.withdrawalHistory();
+                newBank.printWithdrawalHistory();
             }
             else if (input.equals("end session")) {
                 break;

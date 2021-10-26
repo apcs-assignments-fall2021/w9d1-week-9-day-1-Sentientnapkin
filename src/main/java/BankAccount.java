@@ -5,7 +5,7 @@ public class BankAccount {
     private String preferredName;
     private double lastValue;
     private double[] withdrawals;
-    private int count = 0;
+    private int count = -1;
 
     public BankAccount(String preferredName){
         this.balance = 2.50;
@@ -25,17 +25,19 @@ public class BankAccount {
         return accountNumber;
     }
     public void withdraw(double num){
-        if(num<=balance){
+        if(num<=this.balance){
             System.out.println("You have withdrawn $"+num+".");
-            balance-=num;
+            this.lastValue=this.balance;
+            this.balance-=num;
+            withdrawalHistory();
         }
         else System.out.println("You have inputted an invalid number.");
     }
     public void deposit(double num){
-        if(num<=balance){
             System.out.println("You deposited $"+num+".");
-            balance+=num;
-        }
+            this.lastValue=this.balance;
+            this.balance+=num;
+            withdrawalHistory();
     }
     public double getBalance(){
         return this.balance;
@@ -53,19 +55,20 @@ public class BankAccount {
     public String toString(){
         return "Owner:"+this.preferredName+"; Balance:"+this.balance+"; Account Number:"+this.accountNumber;
     }
-    public void withdrawalHistory(){
-        this.withdrawals[count]=this.balance-this.lastValue;
+    private void withdrawalHistory(){
         count++;
-        double temp = 0;
+        this.withdrawals[count]=this.balance-this.lastValue;
         if (count==6){
             count--;
             for(int i = 0;i<5;i++){
                 this.withdrawals[count]=this.withdrawals[count+1];
             }
         }
+    }
+    public void printWithdrawalHistory(){
         for(int i = 0;i<4;i++){
             if(this.withdrawals[i]!=0)
-                System.out.println(this.withdrawals[i]+"; ");
+                System.out.println(this.withdrawals[i]+"  ");
         }
         if(this.withdrawals[4]!=0)
             System.out.println(withdrawals[4]);
